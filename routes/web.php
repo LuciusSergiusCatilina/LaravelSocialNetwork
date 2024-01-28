@@ -24,7 +24,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard'); // topUsers
 Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
 Route::get('/admin', [AdminDashboardController::class,'index'])->middleware(['auth','can:admin'])->name('admin.dashboard');
 Route::get('/lang/{lang}',function($lang){

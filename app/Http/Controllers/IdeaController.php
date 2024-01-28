@@ -6,6 +6,7 @@ use App\Http\Requests\StoreIdeaRequest;
 use App\Http\Requests\UpdateIdeaRequest;
 use Illuminate\Http\Request;
 use App\Models\Idea;
+use Illuminate\Support\Facades\Cache;
 
 class IdeaController extends Controller
 {
@@ -16,6 +17,7 @@ class IdeaController extends Controller
 
 
     public function store(StoreIdeaRequest $request){
+        Cache::forget('topUsers');
         $validated = $request->validated();
 
         $validated['user_id'] = auth()->id();
@@ -29,6 +31,8 @@ class IdeaController extends Controller
         // }
 
         // $this->authorize('idea.delete',$idea);
+
+        Cache::forget('topUsers');
         $this->authorize('delete',$idea);
         $idea->delete();
         return redirect()->route('dashboard')->with('success', 'Idea deleted!');
