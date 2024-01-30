@@ -37,7 +37,8 @@ class AppServiceProvider extends ServiceProvider
 
         $topUsers = Cache::remember('topUsers', 5, function () {
             Log::info('Creating topUsers cache');
-            return User::withCount('ideas')
+            return User::has('ideas')
+            ->withCount('ideas')
             ->orderBy('ideas_count', 'DESC')
             ->take(5)->get();
 

@@ -28,7 +28,9 @@ class AuthController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password'])
         ]);
-        Mail::to($user->email)->send(new WelcomeEmail($user));
+
+        // Mail::to($user->email)->send(new WelcomeEmail($user)); //Работает только с mailHog
+
         return redirect()->route('dashboard')->with('success', 'User registrated!');
 
 
